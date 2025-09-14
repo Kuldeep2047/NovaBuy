@@ -1,0 +1,76 @@
+
+<% layout('layouts/boilerplate') %>
+<%- include('../partials/navbar') %>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-4">
+          <h3 class="fw-bold mb-4 text-center text-success">➕ Add New Product</h3>
+
+          <form action="/products" method="POST" class="needs-validation" novalidate>
+            
+            <!-- Name -->
+            <div class="mb-3">
+              <label for="naam" class="form-label fw-semibold">Product Name</label>
+              <input type="text" class="form-control rounded-3" name="name" id="naam" placeholder="Enter product name" required>
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please enter the product name.</div>
+            </div>
+
+            <!-- Image -->
+            <div class="mb-3">
+              <label for="img" class="form-label fw-semibold">Image URL</label>
+              <input type="text" class="form-control rounded-3" name="img" id="img" placeholder="Enter product image URL" required>
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please enter the image URL.</div>
+            </div>
+
+            <!-- Price -->
+            <div class="mb-3">
+              <label for="paisa" class="form-label fw-semibold">Price (₹)</label>
+              <input type="number" class="form-control rounded-3" name="price" id="paisa" placeholder="Enter product price" required>
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please enter the product price.</div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label for="desc" class="form-label fw-semibold">Description</label>
+              <textarea class="form-control rounded-3" rows="5" name="desc" id="desc" placeholder="Enter product description" required></textarea>
+              <div class="valid-feedback">Looks good!</div>
+              <div class="invalid-feedback">Please enter the product description.</div>
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid">
+              <button class="btn btn-success btn-lg rounded-pill" type="submit">Add Product</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  (() => {
+    'use strict'
+    const forms = document.querySelectorAll('.needs-validation')
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+</script>
+
+</body>
+</html>

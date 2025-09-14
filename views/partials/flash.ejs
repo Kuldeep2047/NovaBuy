@@ -1,0 +1,27 @@
+<% if(success && success.length){ %>
+  <div id="flash-message" class="alert alert-success alert-dismissible fade show shadow-sm border-0 rounded-3 d-flex align-items-center" role="alert">
+    <i class="fa-solid fa-circle-check me-2 fs-5"></i>
+    <span><%= success %></span>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+
+<% if(error && error.length){ %>
+  <div id="flash-message" class="alert alert-danger alert-dismissible fade show shadow-sm border-0 rounded-3 d-flex align-items-center" role="alert">
+    <i class="fa-solid fa-triangle-exclamation me-2 fs-5"></i>
+    <span><%= error %></span>
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+
+<script>
+  // Hide flash after 3 seconds
+  setTimeout(() => {
+    const flash = document.getElementById('flash-message');
+    if(flash){
+      flash.style.transition = "opacity 0.5s ease";
+      flash.style.opacity = 0;
+      setTimeout(() => flash.remove(), 500); // remove after fade-out
+    }
+  }, 3000);
+</script>

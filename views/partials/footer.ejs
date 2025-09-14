@@ -1,0 +1,73 @@
+<footer class="footer mt-auto py-4">
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+    
+    <!-- Left -->
+    <div class="text-light mb-3 mb-md-0">
+      &copy; <%= new Date().getFullYear() %> <strong>NovaBuy</strong>. All rights reserved.
+    </div>
+    
+    <!-- Center - Links -->
+    <div class="mb-3 mb-md-0">
+      <a href="/products" class="footer-link me-3">Home</a>
+      <a href="/about" class="footer-link me-3">About</a>
+      <!-- <a href="/contact" class="footer-link">Contact</a> -->
+    </div>
+    
+    <!-- Right - Social icons -->
+    <div>
+      <a href="#" class="footer-icon me-2"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" class="footer-icon me-2"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#" class="footer-icon"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+/* Glass-style footer to match navbar */
+.footer {
+  backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.85); /* subtle dark glass */
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  transition: background 0.3s;
+}
+
+.footer:hover {
+  background: rgba(0, 0, 0, 0.95);
+}
+
+.footer-link {
+  color: #f8f9fa;
+  text-decoration: none;
+  transition: color 0.25s, transform 0.25s;
+}
+
+.footer-link:hover {
+  color: #ffc107;
+  transform: translateY(-2px);
+}
+
+.footer-icon {
+  color: #f8f9fa;
+  font-size: 1.1rem;
+  transition: color 0.25s, transform 0.25s;
+}
+
+.footer-icon:hover {
+  color: #ffc107;
+  transform: translateY(-2px);
+}
+
+/* Responsive spacing */
+@media (max-width: 767px) {
+  .footer {
+    text-align: center;
+  }
+  .footer .container {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+</style>

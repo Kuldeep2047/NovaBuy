@@ -1,0 +1,59 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm sticky-top">
+  <div class="container-fluid px-4">
+    
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold text-warning" href="#">
+      <i class="fa-solid fa-bag-shopping me-2"></i> NovaBuy
+    </a>
+    
+    <!-- Toggle Button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <!-- Nav Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        
+        <li class="nav-item">
+          <a class="nav-link active fw-semibold" aria-current="page" href="/products">
+            <i class="fa-solid fa-house me-1"></i> Home
+          </a>
+        </li>
+
+        <% if(currentUser && currentUser.role === 'seller'){ %>
+          <li class="nav-item">
+            <a class="nav-link fw-semibold" href="/product/new">
+              <i class="fa-solid fa-plus me-1"></i> New Product
+            </a>
+          </li>
+        <% } %>
+      </ul>
+      
+      <!-- Right Side -->
+      <div class="d-flex align-items-center">
+        <% if(!currentUser){ %>
+          <a href="/login" class="btn btn-outline-light btn-sm rounded-pill px-3 mx-2">
+            <i class="fa-solid fa-right-to-bracket me-1"></i> Login
+          </a>
+        <% } else { %>
+          <span class="text-light me-3">👋 Hello, <strong><%= currentUser.username %></strong></span>
+          
+          <a href="/user/cart" class="btn btn-outline-warning btn-sm rounded-pill px-3 mx-2 position-relative">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+              <%= currentUser.cart.length %>
+            </span>
+          </a>
+          
+          <a href="/logout" class="btn btn-outline-danger btn-sm rounded-pill px-3">
+            <i class="fa-solid fa-right-from-bracket me-1"></i> Logout
+          </a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>

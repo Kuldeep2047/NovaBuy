@@ -1,0 +1,192 @@
+
+
+<% layout('layouts/boilerplate') %>
+<%- include('../partials/navbar') %>
+
+
+<div class="container py-5">
+
+  <!-- Back Button -->
+  <div class="mb-4">
+    <button onclick="goBack()" class="btn btn-outline-warning btn-sm rounded-pill">
+      <i class="fa-solid fa-arrow-left me-1"></i> Back
+    </button>
+  </div>
+
+  <!-- Product Section -->
+  <section class="product-section mb-5">
+    <div class="card glass-card shadow-sm rounded-4 border-0 overflow-hidden">
+      <div class="row g-0">
+        
+        <!-- Image -->
+        <div class="col-md-5 p-3">
+          <img src="<%= foundProduct.img %>" alt="<%= foundProduct.name %>" class="img-fluid object-fit-contain rounded-3">
+        </div>
+
+        <!-- Details -->
+        <div class="col-md-7 p-4 d-flex flex-column justify-content-between">
+          <div>
+            <h3 class="fw-bold mb-2"><%= foundProduct.name %></h3>
+            <p class="text-success fw-bold h4 mb-3">₹ <%= foundProduct.price %></p>
+            <p class="text-muted small mb-4"><%= foundProduct.desc %></p>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2">
+            <% if(currentUser && currentUser.role === 'seller'){ %>
+              <a href="/products/<%= foundProduct._id %>/edit" class="btn btn-outline-secondary btn-sm rounded-pill">Edit</a>
+            <% } %>
+
+            <form action="/user/<%= foundProduct._id %>/add" method="POST" class="d-inline">
+              <button type="submit" class="btn btn-primary btn-sm rounded-pill">Add to Cart</button>
+            </form>
+
+            <a href="#" class="btn btn-success btn-sm rounded-pill">Buy Now</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Review Section -->
+<!-- Review Section -->
+<section class="review-section">
+  <%- include('../partials/flash') %>
+  <h4 class="mb-3 fw-bold">Customer Reviews</h4>
+
+  <!-- Add Review Form -->
+  <div class="card glass-card shadow-sm rounded-4 border-0 p-3 mb-4">
+    <form action="/products/<%= foundProduct._id %>/review" method="POST">
+      <fieldset class="starability-basic mb-2 small">
+        <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+        <input type="radio" id="first-rate1" name="rating" value="1" />
+        <label for="first-rate1">1★</label>
+        <input type="radio" id="first-rate2" name="rating" value="2" />
+        <label for="first-rate2">2★</label>
+        <input type="radio" id="first-rate3" name="rating" value="3" />
+        <label for="first-rate3">3★</label>
+        <input type="radio" id="first-rate4" name="rating" value="4" />
+        <label for="first-rate4">4★</label>
+        <input type="radio" id="first-rate5" name="rating" value="5" />
+        <label for="first-rate5">5★</label>
+      </fieldset>
+
+      <textarea name="comment" id="comment" rows="3" class="form-control mb-2 rounded-3" placeholder="Write your review..."></textarea>
+      <button type="submit" class="btn btn-success rounded-pill px-4">Add Review</button>
+    </form>
+  </div>
+
+  <!-- Display Reviews -->
+  <div class="reviews d-flex flex-wrap gap-3" style="max-height: 500px; overflow-y:auto;">
+    <% for(let review of foundProduct.reviews){ %>
+      <div class="card glass-card shadow-sm border-0 p-3 review-card text-center" 
+           style="border-radius: 25px; width: 250px; min-height: 150px; display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
+        
+        <!-- User and Time -->
+        <div>
+          <p class="fw-semibold mb-1"><i class="fa-solid fa-user me-1"></i> <%= review.username || "Anonymous" %></p>
+          <p class="text-muted small mb-2">
+            <i class="fa-regular fa-clock me-1"></i>
+            <%= review.createdAt ? review.createdAt.toLocaleString() : "" %>
+          </p>
+        </div>
+
+        <!-- Stars -->
+        <p class="text-warning small mb-2">
+          <% for(let i=0; i<review.rating; i++){ %>★<% } %>
+        </p>
+
+        <!-- Comment -->
+        <p class="small mb-3 text-wrap" style="word-break: break-word;">💬 <%= review.comment %></p>
+
+        <!-- Delete Button -->
+        <form action="/products/<%= foundProduct._id %>/reviews/<%= review._id %>?_method=DELETE" 
+              method="POST" 
+              class="d-inline">
+          <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill" >
+            Delete
+          </button>
+        </form>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+
+
+<script>
+  function goBack() {
+    window.history.back();
+  }
+</script>
+
+<style>
+/* Glass card style */
+.glass-card {
+  backdrop-filter: blur(6px) saturate(180%);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.glass-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(90deg, #007bff, #0056b3);
+  border: none;
+}
+
+.btn-success {
+  background: linear-gradient(90deg, #28a745, #218838);
+  border: none;
+}
+
+.btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Back Button */
+
+
+.btn-outline-warning:hover {
+  background-color: #ffc107;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Review Scroll */
+.reviews {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.2) transparent;
+}
+
+.reviews::-webkit-scrollbar {
+  width: 6px;
+}
+
+.reviews::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+
+/* Review Card */
+.review-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.review-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+</style>
