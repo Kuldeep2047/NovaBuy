@@ -83,6 +83,11 @@ app.use(paymentRoutes)
 
 app.use('/about', aboutRoutes);
 
+app.get('/', (req, res) => {
+    res.redirect('/products');
+});
+
+
 app.listen(8080,()=>{
     console.log("server connected at 8080")
 })
