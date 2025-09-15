@@ -33,21 +33,7 @@ router.post('/products/:id/review', isLoggedIn, validateReview, async (req, res)
 });
 
 
-// delete a review
-// router.delete('/products/:id/reviews/:reviewId', async (req, res) => {
-//     try {
-//         let { id, reviewId } = req.params;
-//         await Product.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-
-//         await Review.findByIdAndDelete(reviewId);
-
-//         req.flash('success', 'Review deleted successfully');
-//         res.redirect(`/products/${id}`);
-//     } catch (e) {
-//         res.status(500).render('error', { err: e.message });
-//     }
-// });
-// Delete review (only author can delete)
+// Delete review
 router.delete('/products/:id/reviews/:reviewId', isLoggedIn, async (req, res) => {
     try {
         const { id, reviewId } = req.params;

@@ -4,7 +4,7 @@
     
     <!-- Brand -->
     <a class="navbar-brand fw-bold text-warning" href="#">
-      <i class="fa-solid fa-bag-shopping me-2"></i> NovaBuy
+      <i ></i> NovaBuy
     </a>
     
     <!-- Toggle Button -->
@@ -19,10 +19,19 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         
         <li class="nav-item">
-          <a class="nav-link active fw-semibold" aria-current="page" href="/products">
+          <a class="nav-link active fw-semibold" aria-current="page" href="/home">
             <i class="fa-solid fa-house me-1"></i> Home
           </a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link active fw-semibold" aria-current="page" href="/products">
+            <i class="fa-solid fa-bag-shopping me-1"></i> All Products
+
+
+
+          </a>
+        </li> 
 
         <% if(currentUser && currentUser.role === 'seller'){ %>
           <li class="nav-item">

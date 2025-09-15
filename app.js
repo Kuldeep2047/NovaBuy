@@ -20,6 +20,8 @@ const authRoutes = require('./routes/auth')
 const cartRoutes = require('./routes/cart') 
 const paymentRoutes = require('./routes/payment') 
 const aboutRoutes = require('./routes/about') 
+const homeRoutes = require('./routes/home')
+const contactRoutes = require('./routes/contact')
 
 
 
@@ -63,6 +65,16 @@ app.use((req,res,next)=>{
 //PASSPORT
 passport.use(new LocalStrategy(User.authenticate()));
 
+// mongoose.connect('mongodb://127.0.0.1:27017/product')
+// .then(()=>{
+//     console.log("Connected to DB")
+// })
+// .catch((err)=>{
+//     console.log("DB error");
+//     console.log(err)
+// })
+
+
 
 mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
@@ -82,9 +94,11 @@ app.use(paymentRoutes)
 // app.use(aboutRoutes);
 
 app.use('/about', aboutRoutes);
+app.use('/', homeRoutes);
+app.use(contactRoutes);
 
 app.get('/', (req, res) => {
-    res.redirect('/products');
+    res.redirect('/home');
 });
 
 

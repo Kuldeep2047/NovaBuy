@@ -1,5 +1,3 @@
-
-
 const {productSchema, reviewSchema} = require('./schema')
 
 const validateProduct = (req,res,next)=>{
